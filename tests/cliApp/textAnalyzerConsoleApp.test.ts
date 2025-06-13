@@ -10,13 +10,13 @@ describe('Text Analyzer Console App', () => {
         analyzerApp = new TextAnalyzerConsoleApp(display);
     });
 
-    it('reporting 0 words', () => {
+    it('analyzing text with 0 words', () => {
         analyzerApp.analyze("");
 
         expect(display.showText).toHaveBeenCalledWith("The text contains 0 words.\n");
     });
 
-    it('reporting several words', () => {
+    it('analyzing text with several words', () => {
         analyzerApp.analyze("koko word koko");
 
         expect(display.showText).toHaveBeenCalledWith(
@@ -27,7 +27,7 @@ describe('Text Analyzer Console App', () => {
         );
     });
 
-    it('reporting excluding some words', () => {
+    it('analyzing text excluding some words', () => {
         analyzerApp.analyze("koko word koko --noshow=[koko]");
 
         expect(display.showText).toHaveBeenCalledWith(
