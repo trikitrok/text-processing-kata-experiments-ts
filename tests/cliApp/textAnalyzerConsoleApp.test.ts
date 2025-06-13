@@ -36,4 +36,14 @@ describe('Text Analyzer Console App', () => {
             "The text contains 3 words.\n"
         );
     });
+
+    it('analyzing text filtering words below given frequency', () => {
+        analyzerApp.analyze("koko word koko --minfreq=2");
+
+        expect(display.showText).toHaveBeenCalledWith(
+            "This is the top 1 most used word:\n" +
+            `1 koko (2)\n` +
+            "The text contains 3 words.\n"
+        );
+    });
 });
