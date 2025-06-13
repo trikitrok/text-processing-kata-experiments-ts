@@ -14,14 +14,11 @@ export class AnalysisFactory {
     }
 
     private static createWordsRanking(options: Options): WordsRanking {
-        let wordsRanking: WordsRanking = new ByFrequencyWordsRanking();
-        if (options.minFreq) {
-            wordsRanking = new FilteringBelowFrequency(options.minFreq, wordsRanking);
-        }
-        if (options.max) {
-            wordsRanking = new TakingFirstN(options.max, wordsRanking);
-        }
-        return wordsRanking;
+        return this.wordsRankingCreationChain(options).create();
+    }
+
+    private static wordsRankingCreationChain(options: Options): RankingCreation {
+        return new TakingFirstNRankingCreation(options, new FilteringBelowFrequencyCreation(options, new ByFrequencyWordsRankingCreation()));
     }
 
     private static createWordsExtraction(options: Options): WordsExtraction {
@@ -30,5 +27,65 @@ export class AnalysisFactory {
             return new ExclusionListWordsExtraction(options.noShow, wordsExtraction);
         }
         return wordsExtraction;
+    }
+}
+
+abstract class RankingCreation {
+    public abstract create(): WordsRanking;
+
+    protected abstract applies(): boolean;
+}
+
+class ByFrequencyWordsRankingCreation extends RankingCreation {
+    public create(): WordsRanking {
+        return new ByFrequencyWordsRanking();
+    }
+
+    protected applies(): boolean {
+        return true;
+    }
+}
+
+class TakingFirstNRankingCreation extends RankingCreation {
+    private readonly rankingCreation: RankingCreation;
+    private readonly options: Options;
+
+    constructor(options: Options, rankingCreation: RankingCreation) {
+        super();
+        this.options = options;
+        this.rankingCreation = rankingCreation;
+    }
+
+    public create(): WordsRanking {
+        if (this.applies() && this.options?.max !== undefined) {
+            return new TakingFirstN(this.options?.max, this.rankingCreation.create());
+        }
+        return this.rankingCreation.create();
+    }
+
+    protected applies(): boolean {
+        return ('max' in this.options);
+    }
+}
+
+class FilteringBelowFrequencyCreation extends RankingCreation {
+    private readonly rankingCreation: RankingCreation;
+    private readonly options: Options;
+
+    constructor(options: Options, rankingCreation: RankingCreation) {
+        super();
+        this.options = options;
+        this.rankingCreation = rankingCreation;
+    }
+
+    public create(): WordsRanking {
+        if (this.applies() && this.options?.minFreq !== undefined) {
+            return new FilteringBelowFrequency(this.options?.minFreq, this.rankingCreation.create());
+        }
+        return this.rankingCreation.create();
+    }
+
+    protected applies(): boolean {
+        return ('minFreq' in this.options);
     }
 }
