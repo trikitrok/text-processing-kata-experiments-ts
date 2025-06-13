@@ -6,6 +6,7 @@ import {Analysis} from "./analysis";
 import {ByFrequencyWordsRanking} from "./wordsRankings/byFrequencyWordsRanking";
 import {WordsRanking} from "./wordsRanking";
 import {FilteringBelowFrequency} from "./wordsRankings/filteringBelowFrequency";
+import {TakingFirstN} from "./wordsRankings/takingFirstN";
 
 export class AnalysisFactory {
     static createAnalysis(options: Options): Analysis {
@@ -13,9 +14,12 @@ export class AnalysisFactory {
     }
 
     private static createWordsRanking(options: Options): WordsRanking {
-        const wordsRanking = new ByFrequencyWordsRanking();
+        const wordsRanking: WordsRanking = new ByFrequencyWordsRanking();
         if(options.minFreq) {
             return new FilteringBelowFrequency(options.minFreq, wordsRanking);
+        }
+        if(options.max) {
+            return new TakingFirstN(options.max, wordsRanking);
         }
         return wordsRanking;
     }

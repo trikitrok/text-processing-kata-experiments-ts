@@ -46,4 +46,15 @@ describe('Text Analyzer Console App', () => {
             "The text contains 3 words.\n"
         );
     });
+
+    it('analyzing text taking first n words', () => {
+        analyzerApp.analyze("koko word koko pepe pepe pepe --max=2");
+
+        expect(display.showText).toHaveBeenCalledWith(
+            "These are the top 2 most used words:\n" +
+            `1 pepe (3)\n` +
+            `2 koko (2)\n` +
+            "The text contains 6 words.\n"
+        );
+    });
 });
