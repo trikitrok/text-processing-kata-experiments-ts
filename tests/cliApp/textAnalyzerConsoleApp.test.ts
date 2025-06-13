@@ -37,7 +37,7 @@ describe('Text Analyzer Console App', () => {
         );
     });
 
-    it('analyzing text filtering words below given frequency', () => {
+    it('analyzing text filtering words below a given frequency', () => {
         analyzerApp.analyze("koko word koko --minfreq=2");
 
         expect(display.showText).toHaveBeenCalledWith(
@@ -62,7 +62,7 @@ describe('Text Analyzer Console App', () => {
         ["koko word koko pepe pepe pepe word --max=2 --minfreq=2"],
         ["koko word koko pepe pepe pepe word --minfreq=2 --max=2"],
     ])
-    ('analyzing text taking first n words', (consoleInput: string) => {
+    ('analyzing text filtering words below a given frequency and taking first n words', (consoleInput: string) => {
         analyzerApp.analyze(consoleInput);
 
         expect(display.showText).toHaveBeenCalledWith(
