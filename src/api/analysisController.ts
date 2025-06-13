@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {QueryStringParser} from "./QueryStringParser";
+import {QueryStringParser} from "./queryStringParser";
 import {ForRunningAnalysis} from "../domain/forRunningAnalysis";
 
 export class AnalysisController {
