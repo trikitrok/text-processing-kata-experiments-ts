@@ -13,16 +13,18 @@ export class AnalysisFactory {
     }
 
     private static createWordsRanking(options: Options): WordsRanking {
+        const wordsRanking = new ByFrequencyWordsRanking();
         if(options.minFreq) {
-            return new FilteringBelowFrequency(options.minFreq, new ByFrequencyWordsRanking());
+            return new FilteringBelowFrequency(options.minFreq, wordsRanking);
         }
-        return new ByFrequencyWordsRanking();
+        return wordsRanking;
     }
 
     private static createWordsExtraction(options: Options): WordsExtraction {
+        const wordsExtraction = new AllWordsExtraction();
         if (options.noShow) {
-            return new ExclusionListWordsExtraction(options.noShow, new AllWordsExtraction());
+            return new ExclusionListWordsExtraction(options.noShow, wordsExtraction);
         }
-        return new AllWordsExtraction();
+        return wordsExtraction;
     }
 }
