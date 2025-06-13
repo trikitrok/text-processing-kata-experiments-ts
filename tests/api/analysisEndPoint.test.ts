@@ -2,7 +2,7 @@ import request from 'supertest';
 import express, {Application} from 'express';
 import {RunAnalysis} from "../../src/domain/runAnalysis";
 import {AnalysisController} from "../../src/api/analysisController";
-import {anAnalysisResult, rankedWord} from "../helpers/builders";
+import {anAnalysisResult, rankedWord, rankedWords} from "../helpers/builders";
 import {ForRunningAnalysis} from "../../src/domain/forRunningAnalysis";
 
 describe('AnalysisController', () => {
@@ -56,6 +56,29 @@ describe('AnalysisController', () => {
                     .add(rankedWord("koko").withFrequency(2)).build()
             });
         });
+
+        it('analyzes a text taking first n words', async () => {
+            const response = await request(app).get('/v1/analysis')
+                .query({text: 'koko word koko pepe pepe pepe', wordsListed: 2});
+
+            expect(response.status).toBe(200);
+            expect(response.body).toEqual({
+                analysis: anAnalysisResult().ofTextWithLength(6)
+                    .add(rankedWord("pepe").withFrequency(3))
+                    .add(rankedWord("koko").withFrequency(2)).build()
+            });
+        });
+
+        it('analyzes a text filtering words below a given frequency and taking first n words', async () => {
+            const response = await request(app).get('/v1/analysis')
+                .query({text: 'koko word koko pepe pepe pepe word', wordsListed: 2, freqAbove: 1});
+
+            expect(response.status).toBe(200);
+            expect(response.body).toEqual({
+                analysis: anAnalysisResult().ofTextWithLength(7)
+                    .add(rankedWord("pepe").withFrequency(3))
+                    .add(rankedWord("koko").withFrequency(2)).build()});
+        });
     })
 
     describe('problematic paths', () => {
@@ -81,7 +104,7 @@ describe('AnalysisController', () => {
             expect(response.status).toBe(500);
             expect(response.body).toEqual({error: 'Internal server error.'});
         });
-    })
+    });
 
     function initApp(analysisController: AnalysisController): void {
         app = express();
