@@ -9,10 +9,10 @@ export class TextAnalyzerConsoleApp {
     private readonly inputParser: InputParser;
     private readonly forRunningAnalysis: ForRunningAnalysis;
 
-    constructor(display: Display, forRunningAnalysis: ForRunningAnalysis = new RunAnalysis()) {
+    constructor(display: Display) {
         this.reporter = new TextBasedReporter(display);
         this.inputParser = new InputParser();
-        this.forRunningAnalysis = forRunningAnalysis;
+        this.forRunningAnalysis = new RunAnalysis();
     }
 
     analyze(consoleInput: string): void {
