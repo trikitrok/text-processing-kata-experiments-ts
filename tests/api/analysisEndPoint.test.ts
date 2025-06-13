@@ -13,7 +13,7 @@ describe('AnalysisController', () => {
             initApp(new AnalysisController(new RunAnalysis()));
         });
 
-        it('analyze a text without using any option', async () => {
+        it('analyzes a text without using any option', async () => {
             const response = await request(app).get('/v1/analysis')
                 .query({text: 'test input test koko'});
 
@@ -26,7 +26,7 @@ describe('AnalysisController', () => {
             });
         });
 
-        it('analyze an empty text', async () => {
+        it('analyzes an empty text', async () => {
             const response = await request(app).get('/v1/analysis');
 
             expect(response.status).toBe(200);
@@ -35,7 +35,7 @@ describe('AnalysisController', () => {
             });
         });
 
-        it('analyze a text excluding some words', async () => {
+        it('analyzes a text excluding some words', async () => {
             const response = await request(app).get('/v1/analysis')
                 .query({text: 'koko word koko', excludedWords: ['koko']});
 
@@ -43,6 +43,17 @@ describe('AnalysisController', () => {
             expect(response.body).toEqual({
                 analysis: anAnalysisResult().ofTextWithLength(3)
                     .add(rankedWord("word").withFrequency(1)).build()
+            });
+        });
+
+        it('analyzes a text filtering words below given frequency', async () => {
+            const response = await request(app).get('/v1/analysis')
+                .query({text: 'koko word koko', freqAbove: 1});
+
+            expect(response.status).toBe(200);
+            expect(response.body).toEqual({
+                analysis: anAnalysisResult().ofTextWithLength(3)
+                    .add(rankedWord("koko").withFrequency(2)).build()
             });
         });
     })
