@@ -4,7 +4,7 @@ import {ExclusionListWordsExtraction} from "./wordsExtractions/exclusionListWord
 import {AllWordsExtraction} from "./wordsExtractions/allWordsExtraction";
 import {Analysis} from "./analysis";
 
-export class TextAnalyzerFactory {
+export class AnalysisFactory {
     static createAnalysis(options: Options): Analysis {
         return new Analysis(this.createWordsExtraction(options));
     }

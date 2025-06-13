@@ -18,7 +18,7 @@
 
    it will produce the following Json response:
 
-   `{"countedWords": 11, "rankedWords": [{"word": "pipa", "frequency": 3}, {"word": "hello","frequency": 2}, {"word": "world", "frequency": 2}]}`
+   `{"analysis":{"countedWords": 11, "rankedWords": [{"word": "pipa", "frequency": 3}, {"word": "hello","frequency": 2}, {"word": "world", "frequency": 2}]}}`
 
    Write only the entry point (the controller). Don't worry about the framework in this session.
 
