@@ -57,14 +57,15 @@ class TakingFirstNRankingCreation extends RankingCreation {
     }
 
     public create(): WordsRanking {
+        const wordsRanking = this.rankingCreation.create();
         if (this.applies() && this.options?.max !== undefined) {
-            return new TakingFirstN(this.options?.max, this.rankingCreation.create());
+            return new TakingFirstN(this.options?.max, wordsRanking);
         }
-        return this.rankingCreation.create();
+        return wordsRanking;
     }
 
     protected applies(): boolean {
-        return ('max' in this.options);
+        return this.options?.max !== undefined;
     }
 }
 
@@ -79,13 +80,14 @@ class FilteringBelowFrequencyCreation extends RankingCreation {
     }
 
     public create(): WordsRanking {
+        const wordsRanking = this.rankingCreation.create();
         if (this.applies() && this.options?.minFreq !== undefined) {
-            return new FilteringBelowFrequency(this.options?.minFreq, this.rankingCreation.create());
+            return new FilteringBelowFrequency(this.options?.minFreq, wordsRanking);
         }
-        return this.rankingCreation.create();
+        return wordsRanking;
     }
 
     protected applies(): boolean {
-        return ('minFreq' in this.options);
+        return this.options?.minFreq !== undefined;
     }
 }
