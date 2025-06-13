@@ -2,17 +2,17 @@ import {WordsExtraction} from "./wordsExtraction";
 import {AllWordsExtraction} from "./wordsExtractions/allWordsExtraction";
 import {AnalysisResult} from "./analysisResult";
 import {RankedWord} from "./rankedWord";
-import {ByFrequencyWordsRanking} from "./wordsRankings/byFrequencyWordsRanking";
+import {WordsRanking} from "./wordsRanking";
 
 export class Analysis {
     private readonly wordsToRankExtraction: WordsExtraction;
     private readonly textWordsExtraction: WordsExtraction;
-    private wordsRanking: ByFrequencyWordsRanking;
+    private wordsRanking: WordsRanking;
 
-    constructor(wordsToRankExtraction: WordsExtraction) {
+    constructor(wordsToRankExtraction: WordsExtraction, wordsRanking: WordsRanking) {
         this.wordsToRankExtraction = wordsToRankExtraction;
         this.textWordsExtraction = new AllWordsExtraction();
-        this.wordsRanking = new ByFrequencyWordsRanking();
+        this.wordsRanking = wordsRanking;
     }
 
     runOn(text: string): AnalysisResult {

@@ -3,10 +3,11 @@ import {WordsExtraction} from "./wordsExtraction";
 import {ExclusionListWordsExtraction} from "./wordsExtractions/exclusionListWordsExtraction";
 import {AllWordsExtraction} from "./wordsExtractions/allWordsExtraction";
 import {Analysis} from "./analysis";
+import {ByFrequencyWordsRanking} from "./wordsRankings/byFrequencyWordsRanking";
 
 export class AnalysisFactory {
     static createAnalysis(options: Options): Analysis {
-        return new Analysis(this.createWordsExtraction(options));
+        return new Analysis(this.createWordsExtraction(options), new ByFrequencyWordsRanking());
     }
 
     private static createWordsExtraction(options: Options): WordsExtraction {

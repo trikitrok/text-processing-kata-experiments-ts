@@ -2,12 +2,13 @@ import {RankedWord} from "../../src/domain/rankedWord";
 import {rankedWord, rankedWords} from "../helpers/builders";
 import {AllWordsExtraction} from "../../src/domain/wordsExtractions/allWordsExtraction";
 import {Analysis} from "../../src/domain/analysis";
+import {ByFrequencyWordsRanking} from "../../src/domain/wordsRankings/byFrequencyWordsRanking";
 
 describe('analysing text', () => {
     let analysis: Analysis;
 
     beforeEach(() => {
-        analysis = new Analysis(new AllWordsExtraction());
+        analysis = new Analysis(new AllWordsExtraction(), new ByFrequencyWordsRanking());
     });
 
     it.each([
