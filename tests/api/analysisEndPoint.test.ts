@@ -2,7 +2,7 @@ import request from 'supertest';
 import express, {Application} from 'express';
 import {RunAnalysis} from "../../src/domain/runAnalysis";
 import {AnalysisController} from "../../src/api/analysisController";
-import {anAnalysisResult, rankedWord, rankedWords} from "../helpers/builders";
+import {anAnalysisResult, rankedWord} from "../helpers/builders";
 import {ForRunningAnalysis} from "../../src/domain/forRunningAnalysis";
 
 describe('AnalysisController', () => {
