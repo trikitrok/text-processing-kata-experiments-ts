@@ -14,12 +14,12 @@ export class AnalysisFactory {
     }
 
     private static createWordsRanking(options: Options): WordsRanking {
-        const wordsRanking: WordsRanking = new ByFrequencyWordsRanking();
-        if(options.minFreq) {
-            return new FilteringBelowFrequency(options.minFreq, wordsRanking);
+        let wordsRanking: WordsRanking = new ByFrequencyWordsRanking();
+        if (options.minFreq) {
+            wordsRanking = new FilteringBelowFrequency(options.minFreq, wordsRanking);
         }
-        if(options.max) {
-            return new TakingFirstN(options.max, wordsRanking);
+        if (options.max) {
+            wordsRanking = new TakingFirstN(options.max, wordsRanking);
         }
         return wordsRanking;
     }

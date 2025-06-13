@@ -57,4 +57,19 @@ describe('Text Analyzer Console App', () => {
             "The text contains 6 words.\n"
         );
     });
+
+    it.each([
+        ["koko word koko pepe pepe pepe word --max=2 --minfreq=2"],
+        ["koko word koko pepe pepe pepe word --minfreq=2 --max=2"],
+    ])
+    ('analyzing text taking first n words', (consoleInput: string) => {
+        analyzerApp.analyze(consoleInput);
+
+        expect(display.showText).toHaveBeenCalledWith(
+            "These are the top 2 most used words:\n" +
+            `1 pepe (3)\n` +
+            `2 koko (2)\n` +
+            "The text contains 7 words.\n"
+        );
+    });
 });
