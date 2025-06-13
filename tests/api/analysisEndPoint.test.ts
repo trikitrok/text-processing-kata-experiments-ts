@@ -77,7 +77,8 @@ describe('AnalysisController', () => {
             expect(response.body).toEqual({
                 analysis: anAnalysisResult().ofTextWithLength(7)
                     .add(rankedWord("pepe").withFrequency(3))
-                    .add(rankedWord("koko").withFrequency(2)).build()});
+                    .add(rankedWord("koko").withFrequency(2)).build()
+            });
         });
     })
 

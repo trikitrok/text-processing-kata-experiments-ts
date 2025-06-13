@@ -17,7 +17,7 @@ export class TextAnalyzerConsoleApp {
 
     analyze(consoleInput: string): void {
         const input = this.inputParser.parseInput(consoleInput);
-        const analysisResult =  this.forRunningAnalysis.execute(input);
+        const analysisResult = this.forRunningAnalysis.execute(input);
         this.reporter.report(analysisResult);
     }
 }

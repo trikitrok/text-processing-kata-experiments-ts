@@ -8,7 +8,7 @@ describe('taking first n ranked words', () => {
     let wordsRanking: WordsRanking;
 
     beforeEach(() => {
-        decoratedWordsRanking= {rank: jest.fn()};
+        decoratedWordsRanking = {rank: jest.fn()};
     })
 
     it.each([
