@@ -4,12 +4,15 @@ import {Options} from "../domain/options";
 
 export class QueryStringParser {
     extractInput(req: Request): Input {
-        let {text} = req.query;
-        text = text as string || "";
+        return {
+            text: this.extractText(req),
+            options: this.extractOptions(req)
+        };
+    }
 
-        const options = this.extractOptions(req);
-
-        return {text, options};
+    private extractText(req: Request): string {
+        const {text} = req.query;
+        return text as string || "";
     }
 
     private extractOptions(req: Request): Options {
