@@ -22,6 +22,8 @@
 
    Write only the entry point (the controller). Don't worry about the framework in this session.
 
+4. Indicate that the analysis is case-insensitive (it's case-sensitive by default). Use the `--nocase` parameter  (hint use `--nocase=true`).
+
 ## Constraints.
 
 - Introduce variations in behavior by composition, not modification of the existing code:
