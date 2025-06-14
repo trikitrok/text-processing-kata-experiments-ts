@@ -1,7 +1,15 @@
 import {WordsRanking} from "../wordsRanking";
 import {RankedWord} from "../rankedWord";
+import {CaseSensitiveWordToKey} from "./wordToKeys/caseSensitiveWordToKey";
+import {WordToKey} from "./wordToKey";
 
 export class ByFrequencyWordsRanking implements WordsRanking {
+    private readonly wordToKey: WordToKey;
+
+    constructor(wordToKey: CaseSensitiveWordToKey) {
+        this.wordToKey = wordToKey;
+    }
+
     rank(wordsToRank: string[]): RankedWord[] {
         const wordFrequencies = this.generateWordFrequencyMap(wordsToRank);
         const rankedWords = this.rankWordFrom(wordFrequencies);
@@ -22,7 +30,8 @@ export class ByFrequencyWordsRanking implements WordsRanking {
     private generateWordFrequencyMap(wordsToRank: string[]): Map<string, number> {
         return wordsToRank.reduce(
             (acc: Map<string, number>, word: string) => {
-                acc.set(word, (acc.get(word) ?? 0) + 1);
+                const key = this.wordToKey.getKey(word);
+                acc.set(key, (acc.get(key) ?? 0) + 1);
                 return acc;
             },
             new Map<string, number>()

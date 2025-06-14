@@ -7,6 +7,7 @@ import {ByFrequencyWordsRanking} from "./wordsRankings/byFrequencyWordsRanking";
 import {WordsRanking} from "./wordsRanking";
 import {FilteringBelowFrequency} from "./wordsRankings/filteringBelowFrequency";
 import {TakingFirstN} from "./wordsRankings/takingFirstN";
+import {CaseSensitiveWordToKey} from "./wordsRankings/wordToKeys/caseSensitiveWordToKey";
 
 export class AnalysisFactory {
     static createAnalysis(options: Options): Analysis {
@@ -38,7 +39,7 @@ abstract class RankingCreation {
 
 class ByFrequencyWordsRankingCreation extends RankingCreation {
     public create(): WordsRanking {
-        return new ByFrequencyWordsRanking();
+        return new ByFrequencyWordsRanking(new CaseSensitiveWordToKey());
     }
 
     protected applies(): boolean {

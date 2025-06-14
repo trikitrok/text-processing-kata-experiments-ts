@@ -3,12 +3,15 @@ import {rankedWord, rankedWords} from "../helpers/builders";
 import {AllWordsExtraction} from "../../src/domain/wordsExtractions/allWordsExtraction";
 import {Analysis} from "../../src/domain/analysis";
 import {ByFrequencyWordsRanking} from "../../src/domain/wordsRankings/byFrequencyWordsRanking";
+import {CaseSensitiveWordToKey} from "../../src/domain/wordsRankings/wordToKeys/caseSensitiveWordToKey";
 
 describe('analysing text', () => {
     let analysis: Analysis;
 
     beforeEach(() => {
-        analysis = new Analysis(new AllWordsExtraction(), new ByFrequencyWordsRanking());
+        analysis = new Analysis(
+            new AllWordsExtraction(),
+            new ByFrequencyWordsRanking(new CaseSensitiveWordToKey()));
     });
 
     it.each([
