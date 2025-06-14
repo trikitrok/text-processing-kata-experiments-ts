@@ -2,7 +2,7 @@ import {AnalysisResult} from "./analysisResult";
 import {Input} from "./input";
 import {Options} from "./options";
 import {Analysis} from "./analysis";
-import {AnalysisFactory} from "./analysisFactory";
+import {AnalysisFactory} from "./factories/analysisFactory";
 import {ForRunningAnalysis} from "./forRunningAnalysis";
 
 export class RunAnalysis implements ForRunningAnalysis {
