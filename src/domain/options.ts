@@ -3,4 +3,5 @@ export interface Options {
     minFreq?: number;
     max?: number;
     noWordsInFile?: string;
+    noCase?: boolean;
 }

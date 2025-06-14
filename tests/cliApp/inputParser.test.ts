@@ -1,4 +1,5 @@
 import {InputParser, UnknownOptionError} from "../../src/cliApp/inputParser";
+import {Options} from "../../src/domain/options";
 
 // Generated interacting with openai-gpt-4o
 
@@ -105,6 +106,18 @@ describe("parseInput", () => {
         const expectedOutput = {
             text: "lalalala kokokoko ",
             options: {},
+        };
+        expect(parseInput(input)).toEqual(expectedOutput);
+    });
+
+    it.each([
+        ["--nocase=true", {noCase: true}],
+        ["--nocase=false", {noCase: false}],
+    ])("should parse input with nocase option", (optionsInput: string, options: Options) => {
+        const input = `pepe Pepe ${optionsInput}`;
+        const expectedOutput = {
+            text: "pepe Pepe ",
+            options: options,
         };
         expect(parseInput(input)).toEqual(expectedOutput);
     });

@@ -10,7 +10,7 @@ export class UnknownOptionError extends Error {
     }
 }
 
-const AllowedOptionKeys = ["noshow", "minfreq", "max", "nowordsinfile"] as const;
+const AllowedOptionKeys = ["noshow", "minfreq", "max", "nowordsinfile", "nocase"] as const;
 
 type AllowedOptionKeysType = (typeof AllowedOptionKeys)[number];
 
@@ -80,8 +80,22 @@ export class InputParser {
             options.minFreq = Number(match[4]);
         } else if (key === "max") {
             options.max = Number(match[4]);
+        } else if (key === "nocase") {
+            const valueAsString = match[4];
+            options.noCase = this.parseBoolean(valueAsString);
         }
         return options;
+    }
+
+    private parseBoolean(value: string): boolean {
+        const normalizedInput = value.trim().toLowerCase();
+        if (normalizedInput === 'true') {
+            return true;
+        } else if (normalizedInput === 'false') {
+            return false;
+        } else {
+            throw new Error(`Invalid boolean value: ${value}`);
+        }
     }
 
     private extractArrayLikeValueFrom(rawValue: string): any[] | string[] {
