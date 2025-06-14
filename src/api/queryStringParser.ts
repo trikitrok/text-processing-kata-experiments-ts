@@ -13,11 +13,14 @@ export class QueryStringParser {
     }
 
     private extractOptions(req: Request): Options {
-        const {excludedWords, freqAbove, wordsListed} = req.query;
+        const {excludedWords, freqAbove, wordsListed, caseInsensitive} = req.query;
 
         const options: Options = {};
         if (freqAbove) {
             options.minFreq = parseInt(freqAbove as string, 10) + 1;
+        }
+        if (caseInsensitive) {
+            options.noCase = caseInsensitive === 'true';
         }
         if (wordsListed) {
             options.max = parseInt(wordsListed as string, 10);

@@ -80,6 +80,29 @@ describe('AnalysisController', () => {
                     .add(rankedWord("koko").withFrequency(2)).build()
             });
         });
+
+        it('analyzes a text caseInsensitive option deactivated (default behaviour)', async () => {
+            const response = await request(app).get('/v1/analysis')
+                .query({text: 'Word word', caseInsensitive: 'false'});
+
+            expect(response.status).toBe(200);
+            expect(response.body).toEqual({
+                analysis: anAnalysisResult().ofTextWithLength(2)
+                    .add(rankedWord("Word").withFrequency(1))
+                    .add(rankedWord("word").withFrequency(1)).build()
+            });
+        });
+
+        it('analyzes a text caseInsensitive option activated', async () => {
+            const response = await request(app).get('/v1/analysis')
+                .query({text: 'Word word', caseInsensitive: 'true'});
+
+            expect(response.status).toBe(200);
+            expect(response.body).toEqual({
+                analysis: anAnalysisResult().ofTextWithLength(2)
+                    .add(rankedWord("word").withFrequency(2)).build()
+            });
+        });
     })
 
     describe('problematic paths', () => {
