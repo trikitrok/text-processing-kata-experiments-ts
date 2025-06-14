@@ -72,4 +72,29 @@ describe('Text Analyzer Console App', () => {
             "The text contains 7 words.\n"
         );
     });
+
+    it('analyzing text -nocase option activated', () => {
+        analyzerApp.analyze("Word word --nocase=true");
+
+        expect(display.showText).toHaveBeenCalledWith(
+            "This is the top 1 most used word:\n" +
+            `1 word (2)\n` +
+            "The text contains 2 words.\n"
+        );
+    });
+
+    it.each([
+        ["Word word --nocase=false"],
+        ["Word word"],
+    ])
+    ('analyzing text -nocase option deactivated (default behaviour)', (consoleInput: string) => {
+        analyzerApp.analyze(consoleInput);
+
+        expect(display.showText).toHaveBeenCalledWith(
+            "These are the top 2 most used words:\n" +
+            `1 Word (1)\n` +
+            `2 word (1)\n` +
+            "The text contains 2 words.\n"
+        );
+    });
 });

@@ -8,6 +8,7 @@ import {WordsRanking} from "./wordsRanking";
 import {FilteringBelowFrequency} from "./wordsRankings/filteringBelowFrequency";
 import {TakingFirstN} from "./wordsRankings/takingFirstN";
 import {CaseSensitiveWordToKey} from "./wordsRankings/wordToKeys/caseSensitiveWordToKey";
+import {CaseInsensitiveWordToKey} from "./wordsRankings/wordToKeys/caseInsensitiveWordToKey";
 
 export class AnalysisFactory {
     static createAnalysis(options: Options): Analysis {
@@ -19,7 +20,7 @@ export class AnalysisFactory {
     }
 
     private static wordsRankingCreationChain(options: Options): RankingCreation {
-        return new TakingFirstNRankingCreation(options, new FilteringBelowFrequencyCreation(options, new ByFrequencyWordsRankingCreation()));
+        return new TakingFirstNRankingCreation(options, new FilteringBelowFrequencyCreation(options, new ByFrequencyWordsRankingCreation(options)));
     }
 
     private static createWordsExtraction(options: Options): WordsExtraction {
@@ -38,8 +39,19 @@ abstract class RankingCreation {
 }
 
 class ByFrequencyWordsRankingCreation extends RankingCreation {
+    private readonly options: Options;
+
+    constructor(options: Options) {
+        super();
+        this.options = options;
+    }
+
     public create(): WordsRanking {
-        return new ByFrequencyWordsRanking(new CaseSensitiveWordToKey());
+        let wordToKey = new CaseSensitiveWordToKey();
+        if(this.options.noCase) {
+            wordToKey = new CaseInsensitiveWordToKey()
+        }
+        return new ByFrequencyWordsRanking(wordToKey);
     }
 
     protected applies(): boolean {
