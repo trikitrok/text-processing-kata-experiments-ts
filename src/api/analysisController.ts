@@ -9,7 +9,7 @@ export function runAnalysis(req: Request, res: Response): void {
     new AnalysisController(new RunAnalysis()).analyze(req, res);
 }
 
-class AnalysisController {
+export class AnalysisController {
     private readonly runAnalysis: ForRunningAnalysis;
     private readonly parser: QueryStringParser;
 
