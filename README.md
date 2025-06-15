@@ -20,7 +20,11 @@
 
    `{"analysis":{"countedWords": 11, "rankedWords": [{"word": "pipa", "frequency": 3}, {"word": "hello","frequency": 2}, {"word": "world", "frequency": 2}]}}`
 
-   Write only the entry point (the controller). Don't worry about the framework in this session.
+   Use express. Place the code under an `api` folder.
+
+   To run the server: `ts-node src/api/server.ts`
+
+   To manually test de endpoint: `curl "http://localhost:3000/v1/analysis?text=pipa+hello+world+world+hello+koko+pepe+chacha+pipa+pipa+chacha&excludedWords=pepe,koko&freqAbove=1&wordsListed=3"`
 
 4. Indicate that the analysis is case-insensitive (it's case-sensitive by default). Use the `--nocase` parameter  (hint use `--nocase=true`).
 
