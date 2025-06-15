@@ -30,7 +30,7 @@
 
 ## Constraints.
 
-- Introduce variations in behavior by composition, not modification of the existing code:
+- Introduce variations in behavior by composition, not modification of the existing code.
 
 ### Tools
 
