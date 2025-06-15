@@ -51,7 +51,7 @@ export class InputParser {
 
     private extractText(input: string): string {
         const textMatch = input.match(/^(.*?)\s(?=--)/);
-        return textMatch ? textMatch[1].trim() + " " : input.trim() + " ";
+        return textMatch ? textMatch[1].trim() : input.trim();
     }
 
     private extractOptions(input: string): Options {
