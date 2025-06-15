@@ -24,9 +24,11 @@
 
    To run the server: `ts-node src/api/server.ts`
 
-   To manually test de endpoint: `curl "http://localhost:3000/v1/analysis?text=pipa+hello+world+world+hello+koko+pepe+chacha+pipa+pipa+chacha&excludedWords=pepe,koko&freqAbove=1&wordsListed=3"`
+   To manually test de endpoint:
+   `curl "http://localhost:3000/v1/analysis?text=pipa+hello+world+world+hello+koko+pepe+chacha+pipa+pipa+chacha&excludedWords=pepe,koko&freqAbove=1&wordsListed=3"`
 
-4. Indicate that the analysis is case-insensitive (it's case-sensitive by default). Use the `--nocase` parameter  (hint use `--nocase=true`).
+4. Indicate that the analysis is case-insensitive (it's case-sensitive by default). Use the `--nocase` parameter  (hint
+   use `--nocase=true`).
 
 ## Constraints.
 

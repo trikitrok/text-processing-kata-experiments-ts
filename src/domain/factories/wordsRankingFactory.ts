@@ -36,15 +36,15 @@ export class ByFrequencyWordsRankingCreation extends WordsRankingCreation {
         return new ByFrequencyWordsRanking(wordToKey);
     }
 
+    protected applies(): boolean {
+        return true;
+    }
+
     private createWorToKey(): WordToKey {
         if (this.options.noCase) {
             return new CaseInsensitiveWordToKey()
         }
         return new CaseSensitiveWordToKey();
-    }
-
-    protected applies(): boolean {
-        return true;
     }
 }
 
