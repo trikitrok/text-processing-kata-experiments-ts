@@ -3,8 +3,13 @@ import {QueryStringParser} from "./queryStringParser";
 import {ForRunningAnalysis} from "../domain/forRunningAnalysis";
 import {Input} from "../domain/input";
 import {AnalysisResult} from "../domain/analysisResult";
+import {RunAnalysis} from "../domain/runAnalysis";
 
-export class AnalysisController {
+export function runAnalysis(req: Request, res: Response): void {
+    new AnalysisController(new RunAnalysis()).analyze(req, res);
+}
+
+class AnalysisController {
     private readonly runAnalysis: ForRunningAnalysis;
     private readonly parser: QueryStringParser;
 

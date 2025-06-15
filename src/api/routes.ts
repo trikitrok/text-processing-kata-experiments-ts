@@ -1,9 +1,8 @@
 import {Router} from 'express';
-import {AnalysisController} from "./analysisController";
-import {RunAnalysis} from "../domain/runAnalysis";
+import {runAnalysis} from "./analysisController";
 
 const router = Router();
 
-router.get('/v1/analysis', (req, res) => new AnalysisController(new RunAnalysis()).analyze(req, res));
+router.get('/v1/analysis', runAnalysis);
 
 export default router;
